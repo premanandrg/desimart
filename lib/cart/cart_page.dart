@@ -381,6 +381,10 @@ class _CartPageState extends State<CartPage> {
           ),
           InkWell(
             onTap: () async {
+              if (FirebaseAuth.instance.currentUser == null) {
+                pushPage(context, const LoginPage(nextPage: CartPage()));
+                return;
+              }
               setState(() {
                 isLoading = true;
               });

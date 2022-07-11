@@ -7,6 +7,7 @@ import 'package:desimart/components/EmptyWidget.dart';
 import 'package:desimart/homePage/home_page.dart';
 import 'package:desimart/orders/orders_page.dart';
 import 'package:desimart/profile/profile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -67,25 +68,31 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
                 label: 'Cart',
-                icon: StreamBuilder(
-                    stream: myCartRef.snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                            snapshot) {
-                      if (!snapshot.hasError &&
-                          snapshot.data!.docs.isNotEmpty) {
-                        return Badge(
-                            toAnimate: false,
-                            badgeColor: Colors.red,
-                            borderRadius: BorderRadius.circular(8),
-                            badgeContent: Text(
-                                (snapshot.data!.docs.length).toString(),
-                                style: const TextStyle(color: Colors.white)),
-                            child: const Icon(CupertinoIcons.shopping_cart));
-                      }
+                icon: FirebaseAuth.instance.currentUser != null
+                    ? StreamBuilder(
+                        stream: myCartRef.snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                snapshot) {
+                          if (!snapshot.hasError &&
+                              snapshot.connectionState ==
+                                  ConnectionState.done &&
+                              snapshot.hasData) {
+                            return Badge(
+                                toAnimate: false,
+                                badgeColor: Colors.red,
+                                borderRadius: BorderRadius.circular(8),
+                                badgeContent: Text(
+                                    (snapshot.data!.docs.length).toString(),
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                                child:
+                                    const Icon(CupertinoIcons.shopping_cart));
+                          }
 
-                      return const Icon(CupertinoIcons.shopping_cart);
-                    })),
+                          return const Icon(CupertinoIcons.shopping_cart);
+                        })
+                    : const Icon(CupertinoIcons.shopping_cart)),
           ]),
     );
   }

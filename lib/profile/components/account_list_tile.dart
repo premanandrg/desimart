@@ -1,4 +1,10 @@
+import 'package:desimart/main_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../login/login_page.dart';
+import '../../short_codes.dart';
+import '../profile_page.dart';
 
 class AccountListTile extends StatelessWidget {
   const AccountListTile({
@@ -16,10 +22,14 @@ class AccountListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         onTap: () {
+          if (FirebaseAuth.instance.currentUser == null) {
+            pushPage(context, const LoginPage(nextPage: MainPage()));
+            return;
+          }
           onClick();
         },
         title: Text(title),
         leading: Icon(icon),
-        trailing: Icon(Icons.chevron_right));
+        trailing: const Icon(Icons.chevron_right));
   }
 }

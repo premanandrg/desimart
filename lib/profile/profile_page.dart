@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../cart/cart_page.dart';
 import '../orders/orders_page.dart';
 import 'components/account_list_tile.dart';
 
@@ -75,7 +76,7 @@ class ProfilePage extends StatelessWidget {
         ),
         AccountListTile(
           title: 'My Reviews',
-          icon: Icons.support_agent_outlined,
+          icon: Icons.star_outline,
           onClick: () {
             pushPage(context, const CustomrCarePage());
           },
@@ -99,11 +100,7 @@ class ProfilePage extends StatelessWidget {
                 title: 'Logout',
                 icon: Icons.logout_outlined,
                 onClick: () {
-                  logoutFromApp(
-                      context,
-                      const MainPage(
-                        initPage: 2,
-                      )).then((value) {
+                  logoutFromApp(context, const MainPage()).then((value) {
                     showMessage(context, 'Logout successfully');
                   });
                 },
