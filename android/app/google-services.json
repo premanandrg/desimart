@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "802396971908",
+    "project_id": "developthon",
+    "storage_bucket": "developthon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802396971908:android:74401793ee497c6a9433d1",
+        "android_client_info": {
+          "package_name": "com.orangecodebyte.desimart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXisWs-iY3GNuOSXTDuVpcg7ZMhvqAkaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802396971908-prj527bus1l6vhml9jqeihpc8f0e9f37.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orangecodebyte.desimart"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
