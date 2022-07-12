@@ -6,6 +6,8 @@ import 'FIREBASE/firebase_config.dart';
 import 'login/login_page.dart';
 import 'product/product_details_page.dart';
 
+import 'package:flutter_tts/flutter_tts.dart' as speecher;
+
 void pushPage(BuildContext context, Widget page) {
   Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
     return page;
@@ -54,4 +56,9 @@ Future<void> addToCart(BuildContext context, String productId) async {
       showMessage(context, 'Product added to cart');
     });
   });
+}
+
+Future<void> speech(String string) async {
+  speecher.FlutterTts tts = speecher.FlutterTts();
+  await tts.speak(string.toString());
 }

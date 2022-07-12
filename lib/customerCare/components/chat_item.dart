@@ -1,6 +1,6 @@
 import 'package:bubble/bubble.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:desimart/chat/customer_support_page.dart';
+import 'package:desimart/customerCare/customer_support_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

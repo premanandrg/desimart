@@ -50,6 +50,7 @@ class _OrdersPageState extends State<OrdersPage> {
             )
           : FutureBuilder(
               future: ordersRef
+                  .orderBy('timeStamp',descending: true)
                   .where('userId',
                       isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                   .get(),
@@ -60,7 +61,7 @@ class _OrdersPageState extends State<OrdersPage> {
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Something went wrong!'));
                 } else if (snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text('No addresses found!'));
+                  return const Center(child: Text('No orders found!'));
                 }
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,

@@ -50,69 +50,73 @@ class SendMessageField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      child: Container(
-          margin: const EdgeInsets.only(
-            bottom: 5,
-            left: 10,
-            right: 10,
-            top: 10,
-          ),
-          decoration: BoxDecoration(
-              color: defaultBackgroundColor,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Colors.black26,
-                width: 2,
-              )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              const SizedBox(
-                width: 30,
-              ),
-              Expanded(
-                child: Scrollbar(
-                  child: TextFormField(
-                    controller: messageController,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Message',
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+            margin: const EdgeInsets.only(
+              bottom: 5,
+              left: 10,
+              right: 10,
+              top: 10,
+            ),
+            decoration: BoxDecoration(
+                color: defaultBackgroundColor,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Colors.black26,
+                  width: 2,
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  child: Scrollbar(
+                    child: TextFormField(
+                      controller: messageController,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Message',
+                      ),
+                      maxLines: 8,
+                      minLines: 1,
+                      textInputAction: TextInputAction.newline,
+                      textCapitalization: TextCapitalization.sentences,
+                      onFieldSubmitted: (value) {
+                        if (value.trim().isNotEmpty) {
+                          sendMessage(
+                            'text',
+                            value,
+                          );
+                          messageController.clear();
+                        }
+                      },
                     ),
-                    maxLines: 8,
-                    minLines: 1,
-                    textInputAction: TextInputAction.newline,
-                    textCapitalization: TextCapitalization.sentences,
-                    onFieldSubmitted: (value) {
-                      if (value.trim().isNotEmpty) {
-                        sendMessage(
-                          'text',
-                          value,
-                        );
+                  ),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    splashRadius: 20,
+                    icon: const Icon(
+                      Icons.send_rounded,
+                      color: Colors.black54,
+                    ),
+                    onPressed: () {
+                      if (messageController.text.trim().isNotEmpty) {
+                        sendMessage('text', messageController.text.trim());
                         messageController.clear();
                       }
                     },
                   ),
-                ),
-              ),
-              Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  splashRadius: 20,
-                  icon: const Icon(
-                    Icons.send_rounded,
-                    color: Colors.black54,
-                  ),
-                  onPressed: () {
-                    if (messageController.text.trim().isNotEmpty) {
-                      sendMessage('text', messageController.text.trim());
-                      messageController.clear();
-                    }
-                  },
-                ),
-              )
-            ],
-          )),
+                )
+              ],
+            )),
+      ),
     );
   }
 

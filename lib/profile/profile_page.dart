@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:desimart/about/about_page.dart';
 import 'package:desimart/address/address_page.dart';
 import 'package:desimart/app_config.dart';
-import 'package:desimart/customerCare/customer_care_page.dart';
+import 'package:desimart/customerCare/customer_support_page.dart';
 import 'package:desimart/login/login_page.dart';
 import 'package:desimart/main_page.dart';
 import 'package:desimart/refer/refer_page.dart';
@@ -11,7 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../cart/cart_page.dart';
 import '../orders/orders_page.dart';
 import 'components/account_list_tile.dart';
 
@@ -71,14 +70,18 @@ class ProfilePage extends StatelessWidget {
           title: 'Customer Care',
           icon: Icons.support_agent_outlined,
           onClick: () {
-            pushPage(context, const CustomrCarePage());
+            pushPage(
+                context,
+                const CustomerSupportPage(
+                  isTab: false,
+                ));
           },
         ),
         AccountListTile(
           title: 'My Reviews',
           icon: Icons.star_outline,
           onClick: () {
-            pushPage(context, const CustomrCarePage());
+            pushPage(context, const CustomerSupportPage(isTab: false));
           },
         ),
         AccountListTile(

@@ -30,28 +30,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            //TODO add gradient
+      backgroundColor: Colors.white,
+      body: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+            Image.asset(
+              'assets/images/applogo.png',
+              height: 100,
             ),
-        child: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-              const Icon(
-                CupertinoIcons.shopping_cart,
-                size: 50,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                appName,
-                style: Theme.of(context).textTheme.bodyLarge,
-              )
-            ])),
-      ),
+            const SizedBox(
+              height: 10,
+            ),
+          ])),
     );
   }
 }

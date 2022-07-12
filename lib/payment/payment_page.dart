@@ -75,6 +75,7 @@ class _PaymentPageState extends State<PaymentPage> {
           cartProductsSnaps[i].data() as Map<String, dynamic>;
       orderItem.addAll({
         'productId': cartProductsSnaps[i].id,
+        'vendorId': cartProductsSnaps[i]['vendorId'],
         'quantity': 1,
       });
       orderProductsList.add(orderItem);
