@@ -16,6 +16,9 @@ var myAddressRef = FirebaseFirestore.instance
 //Products
 var productsRef = FirebaseFirestore.instance.collection('Products');
 
+//Services
+var servicesRef = FirebaseFirestore.instance.collection('Services');
+
 //Orders
 var ordersRef = FirebaseFirestore.instance.collection('Orders');
 

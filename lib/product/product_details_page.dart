@@ -124,10 +124,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 color: appColor,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              (productSnap['mrp'] -
-                                          (productSnap['mrp'] *
-                                              productSnap['price'] /
-                                              100))
+                              (((productSnap['mrp'] - productSnap['price']) /
+                                              productSnap['mrp']) *
+                                          100)
                                       .ceil()
                                       .toString() +
                                   '%',

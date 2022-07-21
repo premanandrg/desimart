@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../login/login_page.dart';
 import '../../short_codes.dart';
-import '../profile_page.dart';
 
 class AccountListTile extends StatelessWidget {
   const AccountListTile({
@@ -20,16 +19,21 @@ class AccountListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-        onTap: () {
-          if (FirebaseAuth.instance.currentUser == null) {
-            pushPage(context, const LoginPage(nextPage: MainPage()));
-            return;
-          }
-          onClick();
-        },
-        title: Text(title),
-        leading: Icon(icon),
-        trailing: const Icon(Icons.chevron_right));
+    return GestureDetector(
+      onLongPress: () {
+        speech(title);
+      },
+      child: ListTile(
+          onTap: () {
+            if (FirebaseAuth.instance.currentUser == null) {
+              pushPage(context, const LoginPage(nextPage: MainPage()));
+              return;
+            }
+            onClick();
+          },
+          title: Text(title),
+          leading: Icon(icon),
+          trailing: const Icon(Icons.chevron_right)),
+    );
   }
 }

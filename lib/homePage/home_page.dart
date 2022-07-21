@@ -52,26 +52,36 @@ class _HomePageState extends State<HomePage> {
             ),
 
             actions: [
-              IconButton(
-                onPressed: () {
-                  pushPage(context, const ProfilePage());
+              GestureDetector(
+                onLongPress: () {
+                  speech('My Profile');
                 },
-                icon: FirebaseAuth.instance.currentUser == null
-                    ? const Icon(Icons.account_circle)
-                    : CircleAvatar(
-                        backgroundImage:
-                            FirebaseAuth.instance.currentUser == null
-                                ? null
-                                : CachedNetworkImageProvider(FirebaseAuth
-                                    .instance.currentUser!.photoURL
-                                    .toString()),
-                      ),
-              ),
-              IconButton(
+                child: IconButton(
                   onPressed: () {
-                    pushPage(context, const NotificationPage());
+                    pushPage(context, const ProfilePage());
                   },
-                  icon: const Icon(Icons.notifications_on)),
+                  icon: FirebaseAuth.instance.currentUser == null
+                      ? const Icon(Icons.account_circle)
+                      : CircleAvatar(
+                          backgroundImage:
+                              FirebaseAuth.instance.currentUser == null
+                                  ? null
+                                  : CachedNetworkImageProvider(FirebaseAuth
+                                      .instance.currentUser!.photoURL
+                                      .toString()),
+                        ),
+                ),
+              ),
+              GestureDetector(
+                onLongPress: () {
+                  speech('Notifications');
+                },
+                child: IconButton(
+                    onPressed: () {
+                      pushPage(context, const NotificationPage());
+                    },
+                    icon: const Icon(Icons.notifications_on)),
+              ),
             ],
           ),
           const SizedBox(
@@ -84,6 +94,9 @@ class _HomePageState extends State<HomePage> {
                   const SearchProductPage(
                     isMic: false,
                   ));
+            },
+            onLongPress: () {
+              speech('Search products');
             },
             child: Container(
               alignment: Alignment.center,
@@ -145,25 +158,29 @@ class _HomePageState extends State<HomePage> {
           GridLayoutCard(
             title: 'Services',
             type: 'service',
-            //TODO services
-            query: productsRef,
+            query: servicesRef,
           )
         ]),
       ),
-      floatingActionButton: FloatingActionButton(
-          mini: true,
-          backgroundColor: Colors.white,
-          onPressed: () {
-            if (FirebaseAuth.instance.currentUser == null) {
-              pushPage(context, const LoginPage(nextPage: MainPage()));
-              return;
-            }
-            pushPage(context, const CustomerSupportPage(isTab: false));
-          },
-          child: const Icon(
-            Icons.support_agent_outlined,
-            color: appColor,
-          )),
+      floatingActionButton: GestureDetector(
+        onLongPress: () {
+          speech('Customer care');
+        },
+        child: FloatingActionButton(
+            mini: true,
+            backgroundColor: Colors.white,
+            onPressed: () {
+              if (FirebaseAuth.instance.currentUser == null) {
+                pushPage(context, const LoginPage(nextPage: MainPage()));
+                return;
+              }
+              pushPage(context, const CustomerSupportPage(isTab: false));
+            },
+            child: const Icon(
+              Icons.support_agent_outlined,
+              color: appColor,
+            )),
+      ),
     );
   }
 }
@@ -222,6 +239,9 @@ class _CategorySectionState extends State<CategorySection> {
                     categoryIndex = index;
                   });
                 },
+                onLongPress: () {
+                  speech(labels[index]);
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: Chip(
@@ -275,6 +295,9 @@ class _CategorySectionState extends State<CategorySection> {
                       pushPage(context,
                           ProductDetailsPage(productId: productSnap.id));
                     },
+                    onLongPress: () {
+                      speech(productSnap['name']);
+                    },
                     child: Card(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -319,10 +342,10 @@ class _CategorySectionState extends State<CategorySection> {
                                     color: appColor,
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Text(
-                                  (productSnap['mrp'] -
-                                              (productSnap['mrp'] *
-                                                  productSnap['price'] /
-                                                  100))
+                                  (((productSnap['mrp'] -
+                                                      productSnap['price']) /
+                                                  productSnap['mrp']) *
+                                              100)
                                           .ceil()
                                           .toString() +
                                       '%',
@@ -365,107 +388,111 @@ class GridLayoutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(color: appColor.shade800),
-              ),
-              const Divider(),
-              FutureBuilder(
-                //TODO change to category ref
-                future: query.get(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+    return GestureDetector(
+      onLongPress: () {
+        speech(title);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(color: appColor.shade800),
+                ),
+                const Divider(),
+                FutureBuilder(
+                  //TODO change to category ref
+                  future: query.get(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting ||
+                        snapshot.data!.docs.isEmpty) {
+                      return GridView.builder(
+                          padding: EdgeInsets.zero,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4),
+                          itemCount: 8,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext ctx, index) {
+                            return Column(
+                              children: const [
+                                Skeleton(
+                                  heigth: 30,
+                                  width: 30,
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Skeleton(
+                                  heigth: 5,
+                                  width: 10,
+                                ),
+                              ],
+                            );
+                          });
+                    } else if (snapshot.hasError) {
+                      return const Center(child: Text('Something went wrong!'));
+                    }
                     return GridView.builder(
                         padding: EdgeInsets.zero,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4),
-                        itemCount: 8,
+                        itemCount: snapshot.data!.docs.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext ctx, index) {
-                          return Column(
-                            children: const [
-                              Skeleton(
-                                heigth: 30,
-                                width: 30,
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Skeleton(
-                                heigth: 5,
-                                width: 10,
-                              ),
-                            ],
+                          DocumentSnapshot productSnap =
+                              snapshot.data!.docs[index];
+                          return GestureDetector(
+                            onLongPress: () {
+                              speech(
+                                productSnap['name'],
+                              );
+                            },
+                            onTap: () {
+                              if (type == 'product') {
+                                pushPage(
+                                    context,
+                                    ProductDetailsPage(
+                                        productId: productSnap.id));
+                              } else if (type == 'service') {
+                                //TODO service page
+                                // pushPage(
+                                //     context,
+                                //     ProductDetailsPage(
+                                //         productId: productSnap.id));
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      productSnap['image']),
+                                  radius: 30,
+                                ),
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  productSnap['name'],
+                                  style: Theme.of(context).textTheme.caption,
+                                )
+                              ],
+                            ),
                           );
                         });
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text('Something went wrong!'));
-                  } else if (snapshot.data!.docs.isEmpty) {
-                    return const Center(child: Text('No products found!'));
-                  }
-                  return GridView.builder(
-                      padding: EdgeInsets.zero,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4),
-                      itemCount: snapshot.data!.docs.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext ctx, index) {
-                        DocumentSnapshot productSnap =
-                            snapshot.data!.docs[index];
-                        return GestureDetector(
-                          onLongPress: () {
-                            speech(
-                              productSnap['name'],
-                            );
-                          },
-                          onTap: () {
-                            if (type == 'product') {
-                              pushPage(
-                                  context,
-                                  ProductDetailsPage(
-                                      productId: productSnap.id));
-                            } else if (type == 'service') {
-                              //TODO service page
-                              pushPage(
-                                  context,
-                                  ProductDetailsPage(
-                                      productId: productSnap.id));
-                            }
-                          },
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: CachedNetworkImageProvider(
-                                    productSnap['image']),
-                                radius: 30,
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                productSnap['name'],
-                                style: Theme.of(context).textTheme.caption,
-                              )
-                            ],
-                          ),
-                        );
-                      });
-                },
-              ),
-            ],
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

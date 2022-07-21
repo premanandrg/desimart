@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:desimart/short_codes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,95 +120,102 @@ class OrderListTile extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int indexX) {
-                          return Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: CachedNetworkImage(
-                                  imageUrl: orderSnap['products'][indexX]
-                                      ['image'],
-                                  height: 80,
-                                  width: 80,
-                                  memCacheHeight: 200,
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                          orderSnap['products'][indexX]['name'],
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.lato(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          )),
-                                      const SizedBox(height: 5),
-                                      AutoSizeText(
-                                          orderSnap['products'][indexX]
-                                                  ['subtitle']
-                                              .toString(),
-                                          maxLines: 2,
-                                          minFontSize: 7,
-                                          maxFontSize: 12,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: GoogleFonts.lato(
-                                              color: Colors.black45)),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            '₹   ' +
-                                                orderSnap['products'][indexX]
-                                                        ['price']
-                                                    .toString(),
-                                            style: GoogleFonts.lato(),
-                                          ),
-                                          Text(
-                                            ' x ' +
-                                                orderSnap['products'][indexX]
-                                                        ['quantity']
-                                                    .toString(),
-                                            style: GoogleFonts.lato(),
-                                          ),
-                                          Text(
-                                            ' = ₹   ' +
-                                                (orderSnap['products'][indexX]
-                                                            ['price'] *
-                                                        orderSnap['products']
-                                                                [indexX]
-                                                            ['quantity'])
-                                                    .toString(),
-                                            style: GoogleFonts.lato(),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                    ]),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      'Qty : ' +
-                                          orderSnap['products'][indexX]
-                                                  ['quantity']
-                                              .toString(),
-                                    ),
+                          return GestureDetector(
+                            onLongPress: () {
+                              speech(orderSnap['products'][indexX]['name']);
+                            },
+                            behavior: HitTestBehavior.opaque,
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: CachedNetworkImage(
+                                    imageUrl: orderSnap['products'][indexX]
+                                        ['image'],
+                                    height: 80,
+                                    width: 80,
+                                    memCacheHeight: 200,
                                   ),
-                                ],
-                              ),
-                            ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                            orderSnap['products'][indexX]
+                                                ['name'],
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.lato(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            )),
+                                        const SizedBox(height: 5),
+                                        AutoSizeText(
+                                            orderSnap['products'][indexX]
+                                                    ['subtitle']
+                                                .toString(),
+                                            maxLines: 2,
+                                            minFontSize: 7,
+                                            maxFontSize: 12,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.lato(
+                                                color: Colors.black45)),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              '₹   ' +
+                                                  orderSnap['products'][indexX]
+                                                          ['price']
+                                                      .toString(),
+                                              style: GoogleFonts.lato(),
+                                            ),
+                                            Text(
+                                              ' x ' +
+                                                  orderSnap['products'][indexX]
+                                                          ['quantity']
+                                                      .toString(),
+                                              style: GoogleFonts.lato(),
+                                            ),
+                                            Text(
+                                              ' = ₹   ' +
+                                                  (orderSnap['products'][indexX]
+                                                              ['price'] *
+                                                          orderSnap['products']
+                                                                  [indexX]
+                                                              ['quantity'])
+                                                      .toString(),
+                                              style: GoogleFonts.lato(),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ]),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Text(
+                                        'Qty : ' +
+                                            orderSnap['products'][indexX]
+                                                    ['quantity']
+                                                .toString(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {

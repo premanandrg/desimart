@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:802396971908:android:74401793ee497c6a9433d1",
+        "mobilesdk_app_id": "1:802396971908:android:c762a830231a54999433d1",
         "android_client_info": {
-          "package_name": "com.orangecodebyte.desimart"
+          "package_name": "com.example.vendormart"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "802396971908-dlnolvk03jtf01n8ke9thh4jd9vse9u5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vendormart",
+            "certificate_hash": "c02b2eb0908530c80d384b3a9cd34145e756d943"
+          }
+        },
         {
           "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
           "client_type": 3
@@ -31,10 +39,114 @@
               "client_type": 3
             },
             {
-              "client_id": "802396971908-prj527bus1l6vhml9jqeihpc8f0e9f37.apps.googleusercontent.com",
+              "client_id": "802396971908-ml50blff13hv1rt25j5a6ekgbp0kikc2.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.orangecodebyte.desimart"
+                "bundle_id": "com.orangecodebyte.desimartadmin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802396971908:android:74401793ee497c6a9433d1",
+        "android_client_info": {
+          "package_name": "com.orangecodebyte.desimart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802396971908-9b1ii8sgq7am5e8f5vu1nklab712u1ah.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orangecodebyte.desimart",
+            "certificate_hash": "c02b2eb0908530c80d384b3a9cd34145e756d943"
+          }
+        },
+        {
+          "client_id": "802396971908-jlfm8fn4ljqi8gh4j0o783qiej59r6p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orangecodebyte.desimart",
+            "certificate_hash": "56d80c6ed4c0276a2e6be5e39c92580634a6a7db"
+          }
+        },
+        {
+          "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXisWs-iY3GNuOSXTDuVpcg7ZMhvqAkaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802396971908-ml50blff13hv1rt25j5a6ekgbp0kikc2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orangecodebyte.desimartadmin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802396971908:android:254ba9d25a18fc389433d1",
+        "android_client_info": {
+          "package_name": "com.orangecodebyte.desimartadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802396971908-h6dkvqvh2ub8fkt3plba1ku5drf7k0jq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orangecodebyte.desimartadmin",
+            "certificate_hash": "c02b2eb0908530c80d384b3a9cd34145e756d943"
+          }
+        },
+        {
+          "client_id": "802396971908-nlqa5dgf3k9vu7ic1eg11a1po3iuj7ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.orangecodebyte.desimartadmin",
+            "certificate_hash": "56d80c6ed4c0276a2e6be5e39c92580634a6a7db"
+          }
+        },
+        {
+          "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXisWs-iY3GNuOSXTDuVpcg7ZMhvqAkaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802396971908-0c6rtkccseg5h1cs5stn4g16cdmj8me4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "802396971908-ml50blff13hv1rt25j5a6ekgbp0kikc2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.orangecodebyte.desimartadmin"
               }
             }
           ]
